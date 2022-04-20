@@ -1,0 +1,50 @@
+.home-description-section{
+  display: flex;
+  padding: 5rem 2rem;
+  background-color: var(--clr-bg-accent);
+  background-image: linear-gradient(180deg, var(--clr-bg-accent) 0%, var(--clr-bg-light) 74%);
+
+  .home-hook{
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+
+    .hook-title,.hook-caption,.hook-btn{
+      margin:1rem 0;
+    }
+
+    .hook-title{
+      font-size: 2rem;
+    }
+
+    .hook-caption{
+      color:var(--clr-text-secondary);
+      font-size: 1.1rem;
+      width: 600px;
+    }
+
+
+    .hook-btn{
+      background-color: var(--clr-accent);
+      text-decoration: none;
+      text-align: center;
+      border:none;
+      padding:0.5rem 1rem;
+      border-radius: 20px;
+      font-size: 1.1rem;
+      font-weight: 500;
+      color:white;
+      width:220px;
+      cursor: pointer;
+      transition: all ease-in-out 0.3s;
+    }
+    .hook-btn:hover{
+      letter-spacing: 2px;
+      transform: scale(1.1);
+    }
+  }
+
+  img{
+    width: 50%;
+  }
+}

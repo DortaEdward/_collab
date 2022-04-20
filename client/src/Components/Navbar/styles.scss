@@ -1,0 +1,24 @@
+header{
+  padding: 0.6rem 10%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color:var(--clr-text-primary);
+  background-color: var(--clr-bg-light);
+  
+  .logo{
+    font-size: 2rem;
+    font-weight: 600;
+    letter-spacing: 0.1rem;
+  }
+
+  .nav-links{
+    list-style: none;
+    display: flex;
+  }
+
+  .nav-link{
+    font-size: 1.2rem;
+    margin: 0 1rem;
+  }
+}

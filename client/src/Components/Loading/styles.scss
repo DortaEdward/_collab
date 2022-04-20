@@ -1,0 +1,15 @@
+.loading-body{
+  width:4rem;
+  height:4rem;
+  border: 5px solid rgba(197, 197, 197, 0.4);
+  border-radius: 50%;
+  border-top-color: rgb(255, 130, 130);
+  animation: spin 1s infinite;
+  margin:0.4rem;
+}
+
+@keyframes spin{
+  100%{
+    transform: rotate(360deg);
+  }
+}
