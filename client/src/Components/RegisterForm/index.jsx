@@ -1,45 +1,56 @@
 import React, { useRef, useState } from 'react'
 import LoadingIcon from '../Loading';
-
+import { useStoreActions, useStoreState } from 'easy-peasy';
+import {useNavigate} from 'react-router-dom';
 
 function RegisterForm({activeForm, setActiveForm}) {
-  const email = useRef(null);
   const username = useRef(null);
   const password = useRef(null);
   const repeatPassword = useRef(null);
   const displayName = useRef(null);
   const imageUrl = useRef(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
+
+  const { user, loading, error } = useStoreState(state => state.user);
+  const { register, setError } = useStoreActions(actions => actions.user);
 
 
-  const register = async (e) => {
+  const registerCall = async (e) => {
     e.preventDefault();
-    console.log('Registering');
-    setLoading(!loading);
-    setTimeout(() => {
-      console.log('Changing Loading');
-      setLoading(false);
-    }, 3000);
+    try {
+      if (password.current.value === repeatPassword.current.value){
+        const payload = {
+          username: username.current.value,
+          password: password.current.value,
+          displayName: displayName.current.value,
+          imageUrl: imageUrl.current.value ? imageUrl.current.value : 'user.png'
+        }
+        await register(payload);
+        setActiveForm(!activeForm);
+      } else{
+        setError('Passwords Do Not Match');
+      }
+    } catch (error) {
+      console.log(error);
+    }
+
   }
 
   return (
-    <form onSubmit={register} className='form-container'>
+    <form onSubmit={registerCall} className='form-container'>
       <h2>Sign Up With Your Email</h2>
       <p>Already Have An Account?<span onClick={() => setActiveForm(!activeForm)}>Login</span></p>
       {
         error
         ?
-          <p className="form-error">There is An error</p>
+          <p className="form-error">{error}</p>
         :
           <></>
       }
-      <input type="email" className="email-input" placeholder='Email' ref={email} />
-      <input type="text" className="username-input" placeholder='Username' ref={username} />
-      <input type="password" className="password-input" placeholder='Password' ref={password} />
-      <input type="password" className="repeat-password-input" placeholder='Enter Password Again' ref={repeatPassword} />
-      <input type="text" className="display-name-input" placeholder='Display Name' ref={displayName} />
-      <input type="text" className="image-url-input" placeholder='Image Url' ref={imageUrl} />
+      <input type="text" className="username-input" placeholder='Username' ref={username} required />
+      <input type="password" className="password-input" placeholder='Password' ref={password} required />
+      <input type="password" className="repeat-password-input" placeholder='Enter Password Again' ref={repeatPassword} required />
+      <input type="text" className="display-name-input" placeholder='Display Name' ref={displayName} required />
+      <input type="text" className="image-url-input" placeholder='Image Url | Not Required' ref={imageUrl} />
       {
         loading
         ?

@@ -2,12 +2,6 @@ const { model, Schema } = require('mongoose');
 const {stringConfig} = require('./schemaConfig');
 
 const UserSchema = new Schema({
-  email:{
-    ...stringConfig,
-    min:5,
-    max:30,
-    unique:true
-  },
   username:{
     ...stringConfig,
     min:3,
@@ -25,7 +19,6 @@ const UserSchema = new Schema({
   },
   imageUrl:{
     ...stringConfig,
-    default:'user.png'
   }
 },{timestamps:true});
 

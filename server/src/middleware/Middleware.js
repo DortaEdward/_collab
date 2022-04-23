@@ -13,7 +13,7 @@ function errorHandler(error,req,res,next){
   });
 };
 
-function checkTokenSetUser() {
+function checkTokenSetUser(req,res,next) {
   const authHeader = req.get('authorization');
   if (authHeader) {
     const token = authHeader.split(' ')[1];

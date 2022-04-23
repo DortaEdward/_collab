@@ -5,8 +5,8 @@ const bcrypt = require('bcrypt');
 const Users = require('../db/models/User');
 const jwt = require('jsonwebtoken');
 
-// Sign Up Joi Object
-const signUpSchema = Joi.object({
+// Register Joi Object
+const registerSchema = Joi.object({
   username: Joi.string()
     .alphanum()
     .min(3)
@@ -17,13 +17,11 @@ const signUpSchema = Joi.object({
     .min(8)
     .max(30)
     .required(),
-    displayName: Joi.string()
+  displayName: Joi.string()
     .alphanum()
     .max(25)
     .required(),
-    imageUrl: Joi.string()
-    .alphanum()
-    .required(),
+  imageUrl: Joi.string()
 });
 
 // Log In Joi Object
@@ -44,7 +42,6 @@ function createJWT(user,res){
   const payload = {
     id:user.id,
     username:user.username,
-    role:user.role
   };
   jwt.sign(payload, process.env.JWTSECRET, {expiresIn:'1d'}, (error, token) => {
     if (error){
@@ -62,10 +59,11 @@ router.get('/', (req,res) => {
   })
 });
 
-// Sign up
-router.post('/signup', async (req, res, next) => {
+// Register
+router.post('/register', async (req, res, next) => {
+  console.log(req.body);
   try {
-    const validBody = await signUpSchema.validateAsync(req.body);
+    const validBody = await registerSchema.validateAsync(req.body);
     if(validBody){
       const userData = req.body;
       const saltRounds = 10;
@@ -80,6 +78,7 @@ router.post('/signup', async (req, res, next) => {
       next(err);
     }
   } catch (error) {
+    console.log(error);
     next(error);
   }
 })
@@ -94,7 +93,6 @@ router.post('/login', async (req, res, next) => {
       const validPassword = bcrypt.compareSync(password, user.password);
       if(validPassword){
         delete user._doc.password;
-        console.log(user);
         createJWT(user,res);
       }else{
         const err = new Error('Invalid Credentials');

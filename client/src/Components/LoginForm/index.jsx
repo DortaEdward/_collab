@@ -1,19 +1,31 @@
 import React, { useRef, useState } from 'react'
 import LoadingIcon from '../Loading';
+import { useStoreActions, useStoreState } from 'easy-peasy';
+import { useNavigate } from 'react-router-dom';
 
 function LoginForm({activeForm, setActiveForm}) {
-  const loading = false;
-  const [error, setError] = useState(false);
-  const login = async (e) => {
+  const { login } = useStoreActions(actions => actions.user);
+  const {user, loading, error} = useStoreState(state => state.user);
+  const navigator = useNavigate();
+
+  const loginCall = async (e) => {
     e.preventDefault();
-    console.log('Log in')
+    const payload = {
+      username:username.current.value,
+      password:password.current.value
+    };
+    await login(payload);
+    if(localStorage.token){
+      navigator('/dashboard');
+    }
   }
 
-  const email = useRef(null);
+  const username = useRef(null);
   const password = useRef(null);
+
   return (
-    <form onSubmit={login} className='form-container'>
-      <h2>Sign Up With Your Email</h2>
+    <form onSubmit={loginCall} className='form-container'>
+      <h2>Sign Up With Your Username</h2>
       <p>Dont Have An Account?<span onClick={() => setActiveForm(!activeForm)}>Register</span></p>
       {
         error
@@ -22,7 +34,7 @@ function LoginForm({activeForm, setActiveForm}) {
         :
           <></>
       }
-      <input type="email" className="email-input" placeholder='Email' ref={email} />
+      <input type="text" className="username-input" placeholder='Username' ref={username} />
       <input type="password" className="password-input" placeholder='Password' ref={password} />
       {
         loading
