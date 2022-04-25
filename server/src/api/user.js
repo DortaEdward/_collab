@@ -2,16 +2,17 @@ const express = require('express');
 const router = express.Router();
 const Users = require('../db/models/User');
 
+// return users data
+router.get('/', async (req, res, next) => {
+  res.json(req.user || {message:'no user'});
+});
+
+
 // find user
 
 // update user
 
 // delete user
 
-router.get('/', async (req, res, next) => {
-  res.json({
-    message:'User route'
-  })
-});
 
 module.exports = router;

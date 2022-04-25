@@ -1,3 +1,5 @@
+const jwt = require('jsonwebtoken');
+
 function notFound(req,res,next){
   const error = new Error('Not Found - ', req.originalUrl);
   res.status(404);
@@ -33,7 +35,7 @@ function checkTokenSetUser(req,res,next) {
   }
 };
 
-function isLoggedIn() {
+function isLoggedIn(req,res,next) {
   if (req.user) {
     next();
   } else {

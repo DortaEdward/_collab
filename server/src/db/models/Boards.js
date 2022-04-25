@@ -3,13 +3,14 @@ const {stringConfig} = require('./schemaConfig');
 
 const BoardSchema = new Schema({
   name:stringConfig,
-  background:{
+  backgroundImg:{
     ...stringConfig,
     default:''
   },
   ownerId:{
     type: Schema.Types.ObjectId,
-    ref:'Users'
+    ref:'Users',
+    required:true,
   },
   memberIds:[{
     type: Schema.Types.ObjectId,

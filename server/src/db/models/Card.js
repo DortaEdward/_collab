@@ -1,6 +1,7 @@
 const { model, Schema } = require('mongoose');
 const {stringConfig} = require('./schemaConfig');
 
+// Need to add Priority
 const CardSchema = new Schema({
   listId:{
     type: Schema.Types.ObjectId,

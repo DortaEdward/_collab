@@ -39,10 +39,11 @@ const logInSchema = Joi.object({
 });
 
 function createJWT(user,res){
-  const payload = {
-    id:user.id,
-    username:user.username,
-  };
+  delete user._doc.password;
+  delete user._doc.createdAt;
+  delete user._doc.updatedAt;
+  delete user._doc.__v;
+  const payload = {...user._doc};
   jwt.sign(payload, process.env.JWTSECRET, {expiresIn:'1d'}, (error, token) => {
     if (error){
       console.log(error)
@@ -53,9 +54,10 @@ function createJWT(user,res){
   })
 }
 
-router.get('/', (req,res) => {
+router.get('/', async (req,res) => {
+  const users = await Users.find();
   res.json({
-    message:'Auth Route'
+    message:users
   })
 });
 
@@ -104,6 +106,14 @@ router.post('/login', async (req, res, next) => {
     }
   } catch (error) {
     next(error);
+  }
+})
+
+router.get('/logout/:id', async (req,res,next) => {
+  if(req.params.id === req.user.id){
+    delete req.user;
+  } else{
+    next();
   }
 })
 

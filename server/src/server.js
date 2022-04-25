@@ -26,7 +26,8 @@ app.get('/', async (req,res) => {
 
 // Routes
 app.use('/api/v1/auth',require('./auth'));
-app.use('/api/v1/user',require('./api/user'));
+app.use('/api/v1/user', isLoggedIn ,require('./api/user'));
+app.use('/api/v1/board',require('./api/board'));
 
 // error handler
 app.use(notFound);
