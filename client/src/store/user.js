@@ -1,7 +1,6 @@
 import axios from 'axios';
 import {action, thunk} from 'easy-peasy';
 
-
 const authBaseUrl = `${process.env.REACT_APP_API_URL}/auth`;
 const userBaseUrl = `${process.env.REACT_APP_API_URL}/user`;
 
@@ -32,6 +31,11 @@ const user = {
     state.error = error
   }),
 
+  logout: action((state) => {
+    state.user = null;
+    delete localStorage.token;
+  }),
+
   // thunks
   register: thunk(async (actions, payload) => {
     actions.setLoading(true);
@@ -51,10 +55,26 @@ const user = {
     try {
       const res = await authApi.post('/login',payload);
       if(res.status === 200){
-        localStorage.token = res.data.token
+        await localStorage.setItem('token', res.data.token);
       }
     } catch (error) {
       console.log(error.res.data);
+    }
+    actions.setLoading(false);
+  }),
+
+  getUserData: thunk(async (actions) => {
+    actions.setLoading(true);
+    actions.setError(null);
+    try {
+      const config = { headers: {authorization : `Bearer ${localStorage.getItem('token')}`}};
+      const res = await userApi.get('/',config);
+      if(res.status === 200){
+        actions.setUser(res.data);
+        
+      }
+    } catch (error) {
+      console.log(error)
     }
     actions.setLoading(false);
   })

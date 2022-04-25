@@ -16,7 +16,7 @@ function LoginForm({activeForm, setActiveForm}) {
     };
     await login(payload);
     if(localStorage.token){
-      navigator('/dashboard');
+      navigator('/');
     }
   }
 

@@ -1,15 +1,30 @@
-import './App.scss';
+import { useEffect } from 'react';
+import { useStoreState, useStoreActions } from 'easy-peasy';
+
+import Home from './Pages/Home';
+import Dashboard from './Pages/Dashboard';
 
 import Navbar from './Components/Navbar';
-import Home from './Pages/Home';
 import Footer from './Components/Footer';
 
+import './App.scss';
+
 function App() {
-  const user = null;
+  const { user } = useStoreState(state => state.user);
+  const { getUserData } = useStoreActions(actions => actions.user);
+  useEffect(() => {
+    if(localStorage.getItem('token')){
+      getUserData();
+    }
+  }, []);
   return (
     <div className="App">
-      <Navbar user={user}/>
-      <Home />
+      <Navbar/>
+      {
+        user
+          ? <Dashboard />
+          : <Home />
+      }
       <Footer />
     </div>
   );

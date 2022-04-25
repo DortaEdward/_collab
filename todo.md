@@ -1,8 +1,3 @@
-* [] Register
-  * [x] create user via client
-  * [] reroute to log in
-
-* [] Log in'
-  * [] log in via client
-  * [] set token on client
-
+* [] Clear db and make users || mongoose is asking for email when its not in schema
+* [] make seed
+* [] Add User to boards
