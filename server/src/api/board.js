@@ -34,6 +34,56 @@ router.post('/create', async (req,res,next) => {
   } catch (error) {
     next(error);
   }
+});
+
+// add user to board
+router.put('/add/:id', async (req,res,next) => {
+  const boardId = req.params.id;
+  const userId = req.body.userId;
+  const foundBoard = await Boards.findById(boardId);
+  if(!foundBoard.memberIds.includes(userId)){
+    await foundBoard.updateOne({
+      $push:{
+        memberIds: userId
+      }
+    });
+    res.status(200).json({Message:'User Added',Board:foundBoard});
+  } else{
+    const error = new Error('User already a member on the board');
+    res.status(401);
+    next(error);
+  };
+});
+
+// remove user to board
+router.put('/remove/:id', async (req,res,next) => {
+  const boardId = req.params.id;
+  const userId = req.body.userId;
+  const foundBoard = await Boards.findById(boardId);
+  if(foundBoard.memberIds.includes(userId)){
+    await foundBoard.updateOne({
+      $pull:{
+        memberIds: userId
+      }
+    });
+    res.status(200).json({Message:'User Removed',Board:foundBoard});
+  } else{
+    const error = new Error('User not a member on the board');
+    res.status(401);
+    next(error);
+  };
+});
+
+// delete board
+router.delete('/delete/:id', async (req,res,next) => {
+  // find board
+  const bodyId = req.params.id;
+  try {
+    await Boards.findByIdAndDelete(bodyId);
+    res.status(200).json({Message:'Board Deleted'});
+  } catch (error) {
+    next(error);
+  }
 })
 
 

@@ -63,7 +63,6 @@ router.get('/', async (req,res) => {
 
 // Register
 router.post('/register', async (req, res, next) => {
-  console.log(req.body);
   try {
     const validBody = await registerSchema.validateAsync(req.body);
     if(validBody){
