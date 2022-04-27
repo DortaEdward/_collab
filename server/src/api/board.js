@@ -12,10 +12,8 @@ router.get('/', async (req,res,next) => {
     const boardsWithUser = await Boards.find({
       memberIds: [req.user._id]
     });
-    res.status(200).json({
-      userBoards: usersBoards,
-      boardsWithUser: boardsWithUser
-    });
+    const boards = usersBoards.concat(...boardsWithUser);
+    res.status(200).json(boards);
   } catch (error) {
     next(error);
   }
@@ -76,11 +74,14 @@ router.put('/remove/:id', async (req,res,next) => {
 
 // delete board
 router.delete('/delete/:id', async (req,res,next) => {
-  // find board
-  const bodyId = req.params.id;
   try {
-    await Boards.findByIdAndDelete(bodyId);
-    res.status(200).json({Message:'Board Deleted'});
+    const bodyId = req.params.id;
+    if(req.body.userId === req.user._id){
+      await Boards.findByIdAndDelete(bodyId);
+      res.status(200).json({Message:'Board Deleted'});
+    } else {
+      res.status(500).json({message:'Unauthorized'});
+    }
   } catch (error) {
     next(error);
   }

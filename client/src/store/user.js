@@ -3,6 +3,7 @@ import {action, thunk} from 'easy-peasy';
 
 const authBaseUrl = `${process.env.REACT_APP_API_URL}/auth`;
 const userBaseUrl = `${process.env.REACT_APP_API_URL}/user`;
+const boardBaseUrl = `${process.env.REACT_APP_API_URL}/board`;
 
 const authApi = axios.create({
   baseURL: authBaseUrl,
@@ -12,11 +13,17 @@ const userApi = axios.create({
   baseURL: userBaseUrl,
 });
 
+const boardApi = axios.create({
+  baseURL: boardBaseUrl,
+});
+
+
 
 const user = {
   user:null,
   loading:null,
   error:null,
+  setBoards:null,
 
   // actions
   setUser: action((state,user) => {
@@ -29,6 +36,10 @@ const user = {
 
   setError: action((state,error) => {
     state.error = error
+  }),
+
+  setBoards: action((state,boards) => {
+    state.boards = boards;
   }),
 
   logout: action((state) => {
@@ -68,13 +79,28 @@ const user = {
     actions.setError(null);
     try {
       const config = { headers: {authorization : `Bearer ${localStorage.getItem('token')}`}};
-      const res = await userApi.get('/',config);
+      const res = await userApi.get('/', config);
       if(res.status === 200){
         actions.setUser(res.data);
         
       }
     } catch (error) {
       console.log(error)
+    }
+    actions.setLoading(false);
+  }),
+
+  getUserBoards: thunk(async (actions) => {
+    actions.setLoading(true);
+    actions.setError(null);
+    try {
+      const config = { headers: {authorization : `Bearer ${localStorage.getItem('token')}`}};
+      const res = await boardApi.get('/', config);
+      if(res.status === 200){
+        actions.setBoards(res.data);
+      }
+    } catch (error) {
+      actions.setError(error);
     }
     actions.setLoading(false);
   })
