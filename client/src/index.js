@@ -8,6 +8,7 @@ import store from './store/store';
 
 import Access from './Pages/Access';
 import Dashboard from './Pages/Dashboard';
+import BoardPage from './Pages/BoardPage';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -17,6 +18,7 @@ root.render(
         <Route path='/' exact element={<App />} />
         <Route path='/access' exact element={<Access />} />
         <Route path='/dashboard' exact element={<Dashboard />} />
+        <Route path='/board/:id' element={<BoardPage />} />
       </Routes>
     </Router>
   </StoreProvider>

@@ -2,36 +2,27 @@ import React from "react";
 import { useStoreState } from 'easy-peasy';
 import "./styles.scss";
 import { Link } from "react-router-dom";
-function Navbar() {
-  const { user } = useStoreState(state=>state.user);
+function Navbar({user}) {
+  const logout = () => {
+    localStorage.removeItem('token');
+    window.location.reload();
+  };
+
   return (
     <header>
-      <div className="logo">
-        <span>_C</span>ollab
-      </div>
+      <Link to='/' className="logo link">
+        <div className="logo-circle"></div>
+        <p className="logo-text">_Collab</p>
+      </Link>
       <nav>
         <ul className='nav-links'>
-          {
-            user
-              ?
-                <>
-                  
-                  <li className='nav-link'>
-                    {user.displayName}
-                  </li>
-                  <li className='nav-link'>
-                    <img className='user_img' src={user.imageUrl}  alt="User Profile" />
-                  </li>
-                  <li className='nav-link'>
-                    
-                  </li>
-                </>
-              : <>
-                  <li className='nav-link'>
-                    <Link to='/access'>Try It For Free</Link>
-                  </li>
-                </>
-          }
+          <li className='nav-link'>
+            <p>Welcome, {user.displayName}</p>
+          </li>
+          <li className='nav-link'>
+            <img className='user_img' src={user.imageUrl}  alt="User Profile" />
+          </li>
+          <li onClick={() => logout()} className='nav-link logout-btn'>Log Out</li>
         </ul>
       </nav>
     </header>

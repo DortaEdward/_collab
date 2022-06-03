@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react'
 import LoadingIcon from '../Loading';
 import { useStoreActions, useStoreState } from 'easy-peasy';
-import {useNavigate} from 'react-router-dom';
+import './styles.scss';
 
 function RegisterForm({activeForm, setActiveForm}) {
   const username = useRef(null);
@@ -10,9 +10,8 @@ function RegisterForm({activeForm, setActiveForm}) {
   const displayName = useRef(null);
   const imageUrl = useRef(null);
 
-  const { user, loading, error } = useStoreState(state => state.user);
+  const { loading, error } = useStoreState(state => state.user);
   const { register, setError } = useStoreActions(actions => actions.user);
-
 
   const registerCall = async (e) => {
     e.preventDefault();
@@ -36,29 +35,41 @@ function RegisterForm({activeForm, setActiveForm}) {
   }
 
   return (
-    <form onSubmit={registerCall} className='form-container'>
-      <h2>Sign Up With Your Email</h2>
-      <p>Already Have An Account?<span onClick={() => setActiveForm(!activeForm)}>Login</span></p>
-      {
-        error
-        ?
-          <p className="form-error">{error}</p>
-        :
-          <></>
-      }
-      <input type="text" className="username-input" placeholder='Username' ref={username} required />
-      <input type="password" className="password-input" placeholder='Password' ref={password} required />
-      <input type="password" className="repeat-password-input" placeholder='Enter Password Again' ref={repeatPassword} required />
-      <input type="text" className="display-name-input" placeholder='Display Name' ref={displayName} required />
-      <input type="text" className="image-url-input" placeholder='Image Url | Not Required' ref={imageUrl} />
-      {
-        loading
-        ?
-          <LoadingIcon />
-        :
-          <button type='submit' className="form-btn">Register</button>
-      }
-    </form>
+    <div className='register-container'>
+      <div className="register-container-left">
+        <div className="logo">
+          <div className="logo-circle"></div>
+          <p className="logo-text">_Collab</p>
+        </div>
+        <form onSubmit={registerCall} className='form-container'>
+          <h2>Sign up for an account</h2>
+          {
+            error
+            ?
+              <p className="form-error">{error}</p>
+            :
+              <></>
+          }
+          <input type="text" className="username-input" placeholder='Username' ref={username} required />
+          <input type="password" className="password-input" placeholder='Password' ref={password} required />
+          <input type="password" className="repeat-password-input" placeholder='Re-Password' ref={repeatPassword} required />
+          <input type="text" className="display-name-input" placeholder='Display Name' ref={displayName} required />
+          <input type="text" className="image-url-input" placeholder='User Image' ref={imageUrl} />
+          {
+            loading
+            ?
+              <LoadingIcon />
+            :
+              <button type='submit' className="form-btn">Sign Up</button>
+          }
+          <p>Already Have An Account?<span onClick={() => setActiveForm(!activeForm)}>Login</span></p>
+        </form>
+      </div>
+      <div className="register-container-right">
+        <img src="Register-Hero.png" alt="Register" />
+        <p className="hero-text">Join Us & Become More Productive</p>
+      </div>
+    </div>
   )
 }
 

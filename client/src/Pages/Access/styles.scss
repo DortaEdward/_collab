@@ -3,4 +3,22 @@
   align-items: center;
   justify-content: center;
   height: 100vh;
+  width: 100vw;
+  background:var(--clr-white);
+}
+
+@media only screen and (max-width: 900px) {
+  .login-container,.register-container{
+    text-align: center;
+    .register-container-right,.login-container-right{
+      display: none;
+    }
+    .login-container-left,
+    .login-container-right,
+    .register-container-left,
+    .register-container-right{
+      width:100%;
+      height: 100%;
+    }
+  }
 }

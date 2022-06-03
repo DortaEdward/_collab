@@ -11,15 +11,17 @@
  }
 
  :root{
-   --clr-text-primary:#f4f7f5;
+   --clr-text-primary:#000000;
    --clr-text-secondary:#888888;
    --clr-bg-dark:#121212;
    --clr-bg-light:#1e1e1e;
    --clr-bg-accent:#2d2d2d;
-   --clr-accent:#c33535;
+   --clr-accent:#DE5C5C;
+   --clr-bg-light-light: #E3E3E3;
+   --clr-white: #fff;
  }
 
  body{
    line-height: 1.5;
-   background-color: var(--clr-bg-dark);
+   background-color: var(--clr-bg-light-light);
  }

@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Boards = require('../db/models/Boards');
+const Lists = require('../db/models/List');
 
 
 // get all users boards
@@ -16,6 +17,30 @@ router.get('/', async (req,res,next) => {
     res.status(200).json(boards);
   } catch (error) {
     next(error);
+  }
+});
+
+router.get('/:id', async (req,res,next) => {
+  try {
+    // get board
+    const board = await Boards.findById(req.params.id);
+    if(board){
+      // get lists with board id
+      const boardLists = await Lists.find({
+        boardId : req.params.id
+      });
+
+      res.status(200).json({
+        board: board,
+        list: boardLists});
+    } else{
+      const error = new Error('Board Does Not Exist');
+      res.status(404);
+      next(error);
+    }
+
+  } catch (err) {
+    next(err);
   }
 })
 

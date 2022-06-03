@@ -4,6 +4,7 @@ import {action, thunk} from 'easy-peasy';
 const authBaseUrl = `${process.env.REACT_APP_API_URL}/auth`;
 const userBaseUrl = `${process.env.REACT_APP_API_URL}/user`;
 const boardBaseUrl = `${process.env.REACT_APP_API_URL}/board`;
+const listBaseUrl = `${process.env.REACT_APP_API_URL}/list`;
 
 const authApi = axios.create({
   baseURL: authBaseUrl,
@@ -40,6 +41,10 @@ const user = {
 
   setBoards: action((state,boards) => {
     state.boards = boards;
+  }),
+
+  setBoard: action((state,board) => {
+    state.board = board;
   }),
 
   logout: action((state) => {
@@ -98,12 +103,28 @@ const user = {
       const res = await boardApi.get('/', config);
       if(res.status === 200){
         actions.setBoards(res.data);
+        console.log(res.data);
       }
     } catch (error) {
       actions.setError(error);
     }
     actions.setLoading(false);
-  })
+  }),
+
+  createBoard: thunk(async (actions, payload) => {
+    actions.setLoading(true);
+    actions.setError(null);
+    try {
+      const config = { headers: {authorization : `Bearer ${localStorage.getItem('token')}`}};
+      const res = await boardApi.post('/create', payload, config);
+      if(res.status === 200){
+        actions.getUserBoards();
+      }
+    } catch (error) {
+      actions.setError(error);
+    }
+  }),
+  
 }
 
 export default user;

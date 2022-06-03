@@ -4,7 +4,7 @@ header{
   align-items: center;
   justify-content: space-between;
   color:var(--clr-text-primary);
-  background-color: var(--clr-bg-light);
+  background-color: var(--clr-white);
   
   .logo{
     font-size: 2rem;
@@ -23,8 +23,20 @@ header{
     display: flex;
     align-items: center;
     .user_img{
-      height: 40px;
+      width: 70px;
+      height: 70px;
       border-radius: 50%;
     }
+  }
+  .logout-btn{
+    font-weight: 500;
+    transition: all ease-in-out 0.3s;
+    padding:0.5rem;
+  }
+  .logout-btn:hover{
+    cursor: pointer;
+    letter-spacing: 2px;
+    border:1px solid grey;
+    border-radius: 4px;
   }
 }

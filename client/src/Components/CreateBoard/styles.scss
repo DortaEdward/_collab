@@ -1,0 +1,52 @@
+.create-card{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+
+    input{
+      width: 70%;
+      height: 2.2rem;
+      border:none;
+      border-bottom:1px solid grey;
+      padding: 0.4rem;
+    }
+    input:focus{
+      outline:none;
+      font-weight: 600;
+      font-size: 1.2rem;
+    }
+    button{
+      width: 40%;
+      height: 2.2rem;
+      border: none;
+      font-size: 1.2rem;
+      font-weight: 500;
+      color:var(--clr-white);
+      background: var(--clr-accent);
+      border-radius: 4px;
+      transition: all ease-in-out 0.3s;
+    }
+
+    button:hover{
+      letter-spacing: 2px;
+      cursor: pointer;
+    }
+
+    input,
+    button{
+      margin: 1rem auto;
+    }
+  }
+}
+
+.create-board-card:hover{
+  cursor: pointer;
+  transform: scale(1.1);
+  filter: drop-shadow(0 0 0.75rem var(--clr-bg-accent));
+}

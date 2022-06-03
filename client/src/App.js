@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useStoreState, useStoreActions } from 'easy-peasy';
 
-import Home from './Pages/Home';
+import Access from './Pages/Access';
 import Dashboard from './Pages/Dashboard';
 
 import Navbar from './Components/Navbar';
@@ -13,19 +13,17 @@ function App() {
   const { user } = useStoreState(state => state.user);
   const { getUserData } = useStoreActions(actions => actions.user);
   useEffect(() => {
-    if(localStorage.getItem('token')){
+    if(localStorage.getItem('token') && !user){
       getUserData();
     }
   }, []);
   return (
     <div className="App">
-      <Navbar/>
       {
         user
           ? <Dashboard />
-          : <Home />
+          : <Access />
       }
-      <Footer />
     </div>
   );
 }
