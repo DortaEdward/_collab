@@ -59,11 +59,11 @@ const user = {
     try {
       const res = await authApi.post('/register',payload);
     } catch (error) {
-      console.log(error.res.data);
-      // actions.setError(error);
+      actions.setError(error);
     }
     actions.setLoading(false);
   }),
+  
   login: thunk(async (actions, payload) => {
     delete localStorage.token;
     actions.setLoading(true);

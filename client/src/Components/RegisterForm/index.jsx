@@ -35,8 +35,7 @@ function RegisterForm({activeForm, setActiveForm}) {
   }
 
   return (
-    <div className='register-container'>
-      <div className="register-container-left">
+    <div className='user-access-container'>
         <div className="logo">
           <div className="logo-circle"></div>
           <p className="logo-text">_Collab</p>
@@ -64,11 +63,6 @@ function RegisterForm({activeForm, setActiveForm}) {
           }
           <p>Already Have An Account?<span onClick={() => setActiveForm(!activeForm)}>Login</span></p>
         </form>
-      </div>
-      <div className="register-container-right">
-        <img src="Register-Hero.png" alt="Register" />
-        <p className="hero-text">Join Us & Become More Productive</p>
-      </div>
     </div>
   )
 }

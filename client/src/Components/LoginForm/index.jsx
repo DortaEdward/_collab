@@ -28,8 +28,7 @@ function LoginForm({activeForm, setActiveForm}) {
   const password = useRef(null);
 
   return (
-    <div className='login-container'>
-      <div className="login-container-left">
+    <div className='user-access-container'>
         <div className="form-logo">
             <div className="form-logo-circle"></div>
             <p className="form-logo-text">_Collab</p>
@@ -54,11 +53,6 @@ function LoginForm({activeForm, setActiveForm}) {
           }
           <p>Don't Have An Account?<span onClick={() => setActiveForm(!activeForm)}>Sign Up</span></p>
         </form>
-      </div>
-      <div className="login-container-right">
-        <img src="Register-Hero.png" alt="Register" />
-        <p className="hero-text">Productivity created easily</p>
-      </div>
   </div>
   )
 }
