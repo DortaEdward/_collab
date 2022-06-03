@@ -5,11 +5,13 @@ const {stringConfig} = require('./schemaConfig');
 const CardSchema = new Schema({
   listId:{
     type: Schema.Types.ObjectId,
-    ref:'Lists'
+    ref:'Lists',
+    required:true
   },
   boardId:{
     type: Schema.Types.ObjectId,
-    ref:'Boards'
+    ref:'Boards',
+    required:true
   },
   title:stringConfig,
   description:stringConfig,
