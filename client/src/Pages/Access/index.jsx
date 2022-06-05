@@ -11,9 +11,9 @@ function Access() {
       {
         activeForm
           ?
-            <RegisterForm activeForm={activeForm} setActiveForm={setActiveForm}/>
-          :
             <LoginForm activeForm={activeForm} setActiveForm={setActiveForm}/>
+          :
+            <RegisterForm activeForm={activeForm} setActiveForm={setActiveForm}/>
       }
     </div>
   )

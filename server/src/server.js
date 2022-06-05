@@ -29,6 +29,7 @@ app.use('/api/v1/auth',require('./auth'));
 app.use('/api/v1/user', isLoggedIn ,require('./api/user'));
 app.use('/api/v1/board',require('./api/board'));
 app.use('/api/v1/list',require('./api/list'));
+app.use('/api/v1/card',require('./api/card'));
 
 // error handler
 app.use(notFound);

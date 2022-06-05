@@ -15,6 +15,7 @@ function CreateBoard() {
       backgroundImg: boardBackground.current.value
     }
     createBoard(payload);
+    boardName.current.value = null
   }
 
   return (

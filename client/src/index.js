@@ -10,10 +10,13 @@ import Access from './Pages/Access';
 import Dashboard from './Pages/Dashboard';
 import BoardPage from './Pages/BoardPage';
 
+import Navbar from './Components/Navbar';
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <StoreProvider store={store}>
     <Router>
+      <Navbar />
       <Routes>
         <Route path='/' exact element={<App />} />
         <Route path='/access' exact element={<Access />} />

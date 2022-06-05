@@ -13,7 +13,6 @@ router.post('/create/:id', async (req,res,next) => {
         boardId:req.params.id
       });
       res.status(200).json(createdList);
-
     } else{
       const error = new Error('Board Does Not Exist');
       res.status(404);

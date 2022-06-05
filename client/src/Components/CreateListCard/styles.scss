@@ -1,36 +1,34 @@
-.create-card{
+.create-list-card{
+  width:275px;
+  height: 200px;
+  border-radius: 10px;
+  background: var(--clr-white);
+  color: var(--clr-text-primary);
+  transition: all ease-in-out 0.3s;
+  text-decoration: none;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+
   form{
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 100%;
-
     input{
       width: 70%;
       height: 2.2rem;
       border:none;
       border-bottom:1px solid grey;
-      padding: 0.4rem;
+      margin:1rem;
     }
     input:focus{
       outline:none;
       font-weight: 600;
       font-size: 1.2rem;
     }
-
-    input,
     button{
-      margin: 1rem auto;
+      width:60%;
     }
   }
-}
-
-.create-board-card:hover{
-  cursor: pointer;
-  transform: scale(1.1);
-  filter: drop-shadow(0 0 0.75rem var(--clr-bg-accent));
 }

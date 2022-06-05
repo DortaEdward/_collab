@@ -1,10 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const Boards = require('../db/models/Boards');
+const Cards = require('../db/models/Card');
 const Lists = require('../db/models/List');
 
-
-// get all users boards
 router.get('/', async (req,res,next) => {
   try {
     const usersBoards = await Boards.find({
@@ -22,17 +21,35 @@ router.get('/', async (req,res,next) => {
 
 router.get('/:id', async (req,res,next) => {
   try {
-    // get board
     const board = await Boards.findById(req.params.id);
     if(board){
-      // get lists with board id
       const boardLists = await Lists.find({
         boardId : req.params.id
       });
+      const boardCards = await Cards.find({boardId: req.params.id});
 
+      const sortedLists = [];
+
+      for(let i = 0; i< boardLists.length; i++){
+        const listIdStr = boardLists[i]._id.toString()
+        const sortedList = {
+          listId: listIdStr,
+          list: boardLists[i],
+          cards:[]
+        };
+        for(let x =0; x < boardCards.length; x++){
+        const cardIdStr = boardCards[x].listId.toString()
+          if(cardIdStr === sortedList.listId){
+            sortedList.cards.push(boardCards[x]);
+            console.log(boardCards[x])
+          }
+        };
+        sortedLists.push(sortedList);
+      };
+      // console.log(sortedLists);
       res.status(200).json({
-        board: board,
-        list: boardLists});
+        data:sortedLists,
+      });
     } else{
       const error = new Error('Board Does Not Exist');
       res.status(404);

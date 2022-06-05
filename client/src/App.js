@@ -4,9 +4,6 @@ import { useStoreState, useStoreActions } from 'easy-peasy';
 import Access from './Pages/Access';
 import Dashboard from './Pages/Dashboard';
 
-import Navbar from './Components/Navbar';
-import Footer from './Components/Footer';
-
 import './App.scss';
 
 function App() {
@@ -17,6 +14,7 @@ function App() {
       getUserData();
     }
   }, []);
+
   return (
     <div className="App">
       {

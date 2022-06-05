@@ -14,7 +14,6 @@ function Dashboard() {
 
   return (
     <>
-      <Navbar user={user} />
       <div className='boards-container'>
         { boards && boards.map((board) => {
           return(

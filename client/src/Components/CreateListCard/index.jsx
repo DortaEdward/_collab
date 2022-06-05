@@ -1,5 +1,6 @@
 import React, { useRef } from 'react'
 import axios from 'axios';
+import './styles.scss';
 
 function CreateListCard({id, getBoard}) {
   const listName = useRef(null);
@@ -23,11 +24,11 @@ function CreateListCard({id, getBoard}) {
   }
   
   return (
-    <div className='board-card create-card'>
+    <div className='board-card create-list-card'>
       <h2>Create a List</h2>
       <form onSubmit={e => createList(e)}>
         <input type="text" placeholder='Name' ref={listName} required/>
-        <button>Create List</button>
+        <button className='create-list-btn btn'>Create List</button>
       </form>
     </div>
   )

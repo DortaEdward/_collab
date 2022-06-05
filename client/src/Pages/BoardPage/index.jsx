@@ -3,7 +3,6 @@ import { useParams } from "react-router-dom";
 import { useStoreState } from 'easy-peasy';
 import axios from 'axios';
 
-import Navbar from '../../Components/Navbar';
 import ListCard from '../../Components/ListCard';
 import CreateListCard from '../../Components/CreateListCard';
 import './styles.scss';
@@ -18,6 +17,7 @@ function BoardPage() {
     const boardApi = axios.create({
       baseURL: boardBaseUrl,
     });
+
     try {
       const config = { headers: {authorization : `Bearer ${localStorage.getItem('token')}`}};
       const res = await boardApi.get(`/${params.id}`, config);
@@ -31,17 +31,19 @@ function BoardPage() {
 
   useEffect(() => {
     getBoard();
+    console.log(board);
   }, []);
   
+
   return (
     <>
       <div className='board-container'>
         {
           board
             ?
-              board.list.map(i => {
+              board.data.map(i => {
                 return(
-                  <ListCard list={i} key={i._id} />
+                    <ListCard list={i.list} key={i.listId} cards={i.cards} />
                 )
               })
             : 

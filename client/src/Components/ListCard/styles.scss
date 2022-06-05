@@ -1,5 +1,5 @@
 .list-card-container{
-  width:325px;
+  width:275px;
   border-radius: 10px;
   background: var(--clr-white);
   color: var(--clr-text-primary);
@@ -8,4 +8,28 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding: 1rem 0 1.5rem;
+}
+
+.list-name{
+  margin: 0.2rem auto 1rem auto;
+}
+
+.card-container{
+  margin:0.5rem auto;
+  border-radius: 4px;
+  width:90%;
+  text-align: center;
+  border: 1px solid rgba(0,0,0,0.1);
+}
+
+.card-color{
+  border-radius: 4px 4px 0 0 ;
+  width:100%;
+  height: 0.2rem;
+  background-color:red;
+}
+
+.card-details{
+  padding:0.5rem;
 }
